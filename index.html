@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Useless Buttons</title>
+    <style>
+        /* I'm trying to make these buttons look decent */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        /* Because readability matters, right? */
+        h1 {
+            color: #333;
+        }
+        /* Styling the container for the buttons */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        /* Making buttons look like buttons */
+        .button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            border: none;
+            background-color: #3498db;
+            color: #fff;
+            border-radius: 5px;
+            outline: none;
+            transition: transform 0.3s ease;
+        }
+        /* Hover effect because why not */
+        .button:hover {
+            background-color: #2980b9;
+        }
+        /* Animation for spinning the "Useless" button */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        /* Class for spinning animation */
+        .spin-animation {
+            animation: spin 1s linear;
+        }
+
+        /* Animation for wobbling the "Even More Useless" button */
+        @keyframes wobble {
+            0% { transform: translateX(0); }
+            15% { transform: translateX(-10px) rotate(-5deg); }
+            30% { transform: translateX(10px) rotate(5deg); }
+            45% { transform: translateX(-10px) rotate(-5deg); }
+            60% { transform: translateX(10px) rotate(5deg); }
+            75% { transform: translateX(-10px) rotate(-5deg); }
+            100% { transform: translateX(0); }
+        }
+        /* Class for wobble animation */
+        .wobble-animation {
+            animation: wobble 1s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- The title that screams about these useless buttons -->
+    <h1>Useless Buttons</h1>
+    <!-- Container for the buttons, because we need some order -->
+    <div class="button-container">
+        <!-- The button that spins, just for fun -->
+        <button id="useless-btn" class="button" onclick="spinButton()">Useless</button>
+        <!-- The button that wobbles, because why not? -->
+        <button id="even-more-useless-btn" class="button" onclick="wobbleButton()">Even More Useless</button>
+    </div>
+
+    <!-- The secret scripts for making these buttons move -->
+    <script>
+        // Function to spin the "Useless" button
+        function spinButton() {
+            var button = document.getElementById('useless-btn');
+            button.classList.add('spin-animation');
+            setTimeout(function() {
+                button.classList.remove('spin-animation');
+            }, 1000); // Just 1 second of spinning, we don't want to overdo it
+        }
+
+        // Function to wobble the "Even More Useless" button
+        function wobbleButton() {
+            var button = document.getElementById('even-more-useless-btn');
+            button.classList.add('wobble-animation');
+            setTimeout(function() {
+                button.classList.remove('wobble-animation');
+            }, 1000); // 1 second of wobbling, because why not add some shaky fun
+        }
+    </script>
+</body>
+</html>
+
