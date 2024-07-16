@@ -36,6 +36,11 @@
             width: 0;
             height: 100%;
             background-color: #00ff00;
+            animation: progressAnimation 3s infinite;
+        }
+        @keyframes progressAnimation {
+            0% { width: 0; }
+            100% { width: 100%; }
         }
     </style>
 </head>
@@ -48,6 +53,7 @@
     </div>
 
     <script>
+        let memoryUsage = 0;
         let memoryArray = [];
 
         function stressTestMemory() {
@@ -55,6 +61,7 @@
                 for (let i = 0; i < 1000; i++) {
                     memoryArray.push(new Array(100000).fill(0));
                 }
+                memoryUsage += 1000;
             } catch (e) {
                 console.error('Memory stress test failed:', e);
                 clearInterval(memoryTestInterval);
@@ -66,19 +73,13 @@
         const progressBar = document.querySelector('.progress-bar');
 
         function updateProgressBar() {
-            let width = 0;
-            const interval = setInterval(() => {
-                if (width >= 100) {
-                    width = 0;
-                }
-                width += Math.random() * 5;
-                progressBar.style.width = width + '%';
-            }, 200);
-
-            window.addEventListener('beforeunload', () => clearInterval(interval));
+            progressBar.style.width = '0%';
+            setTimeout(() => {
+                progressBar.style.width = '100%';
+            }, 100);
         }
 
-        updateProgressBar();
+        setInterval(updateProgressBar, 3500);
     </script>
 </body>
 </html>
