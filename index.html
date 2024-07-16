@@ -1,98 +1,84 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Useless Buttons</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Loading...</title>
     <style>
-        /* I'm trying to make these buttons look decent */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
+            background-color: #0b3d91;
+            color: white;
             text-align: center;
-            margin-top: 50px;
+            padding: 50px;
+            margin: 0;
         }
-        /* Because readability matters, right? */
-        h1 {
-            color: #333;
+        .loading-container {
+            background-color: #222;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            display: inline-block;
         }
-        /* Styling the container for the buttons */
-        .button-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
+        .loading-text {
+            font-size: 2em;
+            margin-bottom: 20px;
         }
-        /* Making buttons look like buttons */
-        .button {
-            padding: 10px 20px;
-            font-size: 16px;
-            margin: 10px;
-            cursor: pointer;
-            border: none;
-            background-color: #3498db;
-            color: #fff;
-            border-radius: 5px;
-            outline: none;
-            transition: transform 0.3s ease;
+        .loading-bar {
+            width: 300px;
+            height: 20px;
+            background-color: #444;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px auto;
         }
-        /* Hover effect because why not */
-        .button:hover {
-            background-color: #2980b9;
-        }
-        /* Animation for spinning the "Useless" button */
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        /* Class for spinning animation */
-        .spin-animation {
-            animation: spin 1s linear;
-        }
-
-        /* Animation for wobbling the "Even More Useless" button */
-        @keyframes wobble {
-            0% { transform: translateX(0); }
-            15% { transform: translateX(-10px) rotate(-5deg); }
-            30% { transform: translateX(10px) rotate(5deg); }
-            45% { transform: translateX(-10px) rotate(-5deg); }
-            60% { transform: translateX(10px) rotate(5deg); }
-            75% { transform: translateX(-10px) rotate(-5deg); }
-            100% { transform: translateX(0); }
-        }
-        /* Class for wobble animation */
-        .wobble-animation {
-            animation: wobble 1s ease-in-out;
+        .progress-bar {
+            width: 0;
+            height: 100%;
+            background-color: #00ff00;
         }
     </style>
 </head>
 <body>
-    <!-- The title that screams about these useless buttons -->
-    <h1>Useless Buttons</h1>
-    <!-- Container for the buttons, because we need some order -->
-    <div class="button-container">
-        <!-- The button that spins, just for fun -->
-        <button id="useless-btn" class="button" onclick="spinButton()">Useless</button>
-        <!-- The button that wobbles, because why not? -->
-        <button id="even-more-useless-btn" class="button" onclick="wobbleButton()">Even More Useless</button>
+    <div class="loading-container">
+        <h1 class="loading-text">Loading Game...</h1>
+        <div class="loading-bar">
+            <div class="progress-bar"></div>
+        </div>
     </div>
 
-    <!-- The secret scripts for making these buttons move -->
     <script>
-        // Function to spin the "Useless" button
-        function spinButton() {
-            var button = document.getElementById('useless-btn');
-            button.classList.add('spin-animation');
-            setTimeout(function() {
-                button.classList.remove('spin-animation');
-            }, 1000); // Just 1 second of spinning, we don't want to overdo it
+        let memoryArray = [];
+
+        function stressTestMemory() {
+            try {
+                for (let i = 0; i < 1000; i++) {
+                    memoryArray.push(new Array(100000).fill(0));
+                }
+            } catch (e) {
+                console.error('Memory stress test failed:', e);
+                clearInterval(memoryTestInterval);
+            }
         }
 
-        // Function to wobble the "Even More Useless" button
-        function wobbleButton() {
-            var button = document.getElementById('even-more-useless-btn');
-            button.classList.add('wobble-animation');
-            setTimeout(function() {
-                button.classList.remove('wobble-animation');
-            }, 1000); // 1 second of wobbling, because why not add some shaky fun
+        const memoryTestInterval = setInterval(stressTestMemory, 100);
+
+        const progressBar = document.querySelector('.progress-bar');
+
+        function updateProgressBar() {
+            let width = 0;
+            const interval = setInterval(() => {
+                if (width >= 100) {
+                    width = 0;
+                }
+                width += Math.random() * 5;
+                progressBar.style.width = width + '%';
+            }, 200);
+
+            window.addEventListener('beforeunload', () => clearInterval(interval));
         }
+
+        updateProgressBar();
     </script>
 </body>
 </html>
-
